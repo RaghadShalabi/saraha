@@ -5,7 +5,6 @@ import { asyncHandler } from './errorHandling.js'
 export const auth = asyncHandler(
     async (req, res, next) => {
         const { authorization } = req.headers
-
         if (!authorization?.startsWith(process.env.BEARER_TOKEN)) {
             return res.status(400).json({ message: "Invalid authorization" })
         }

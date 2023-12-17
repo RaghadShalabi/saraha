@@ -27,16 +27,19 @@ export const signUpSchema =
         }),
         cPassword: joi.string().valid(joi.ref('password')).required().messages({
             'any.only': "confirm password and password not matched",
-            'string.empty': "Confirm Password is required"
+            'any.required': "Confirm Password is required"
         }),
-    }),
+    })
+    ,
     query: joi.object({
         test: joi.boolean().required().messages({
             'any.only': "test parameter value can only be true/false",
-            'boolean.base': "test must be boolean"
+            'boolean.base': "test must be boolean",
+            'any.required':'test is required'
         }),
     })
 }
+
 export const signInSchema =
 {
     body: joi.object({

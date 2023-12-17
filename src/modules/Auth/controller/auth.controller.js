@@ -45,7 +45,7 @@ export const confirmEmail = async (req, res, next) => {
     if (!updateUser) {
         return res.status(400).json({ message: "your email is verified" })
     } else {
-        return res.redirect(`http://localhost:3030/auth/signIn`)
+        return res.redirect(`${req.protocol}://${req.headers.host}/auth/signIn`)
     }
 }
 

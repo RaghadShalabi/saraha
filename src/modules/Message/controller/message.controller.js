@@ -16,4 +16,3 @@ export const sendMessage = async (req, res, next) => {
     const createMessage = await messageModel.create({ receiverId, message })
     return res.status(201).json({ message: "message is received to user", createMessage });
 }
-

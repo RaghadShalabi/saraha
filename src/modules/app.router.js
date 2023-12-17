@@ -7,7 +7,7 @@ import cors from 'cors'
 
 const initApp = (app, express) => {
     connectDB()
-    //sendEmail()
+    // sendEmail()
     app.use(cors())
     app.use(express.json())
     app.use('/message', messageRouter)
