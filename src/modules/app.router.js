@@ -13,10 +13,10 @@ const initApp = (app, express) => {
     app.use('/message', messageRouter)
     app.use('/user', userRouter)
     app.use('/auth', authRouter)
-    app.get('/',(req,res)=>{
+    app.get('/', (req, res, next) => {
         return res.status(201).json("Welcome...")
     })
-    app.use('*', (req, res) => {
+    app.use('*', (req, res, next) => {
         return res.json({ message: "Page not found 404 x_x" })
     })
 }
