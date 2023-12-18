@@ -6,7 +6,7 @@ import { validation } from '../../middleware/validation.js'
 import { signInSchema, signUpSchema } from './auth.validation.js'
 
 app.post('/signUp', validation(signUpSchema), asyncHandler(authController.signUp))
-app.post('/signIn', validation(signInSchema), asyncHandler(authController.signIn))
+app.get('/signIn', validation(signInSchema), asyncHandler(authController.signIn))
 app.get('/confirmEmail/:emailToken', asyncHandler(authController.confirmEmail))
 app.get('/newConfirmEmail/:refreshToken', asyncHandler(authController.newConfirmEmail))
 
