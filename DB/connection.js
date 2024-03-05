@@ -9,4 +9,4 @@ const connectDB = async (req, res) => {
             console.log(`Error connecting to MongoDB:${error}`);
         })
 }
-export default connectDB
+export default connectDB;

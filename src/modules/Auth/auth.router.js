@@ -1,13 +1,13 @@
-import express from 'express'
-const app = express()
+import Router from 'express'
+const router = Router()
 import * as authController from "./controller/auth.controller.js"
 import { asyncHandler } from '../../middleware/errorHandling.js'
 import { validation } from '../../middleware/validation.js'
 import { signInSchema, signUpSchema } from './auth.validation.js'
 
-app.post('/signUp', validation(signUpSchema), asyncHandler(authController.signUp))
-app.post('/signIn', validation(signInSchema), asyncHandler(authController.signIn))
-app.put('/confirmEmail/:emailToken', asyncHandler(authController.confirmEmail))
-app.put('/newConfirmEmail/:refreshToken', asyncHandler(authController.newConfirmEmail))
+router.post('/signUp', validation(signUpSchema), asyncHandler(authController.signUp))
+router.post('/signIn', validation(signInSchema), asyncHandler(authController.signIn))
+router.put('/confirmEmail/:emailToken', asyncHandler(authController.confirmEmail))
+router.put('/newConfirmEmail/:refreshToken', asyncHandler(authController.newConfirmEmail))
 
-export default app;
+export default router;

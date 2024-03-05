@@ -24,6 +24,18 @@ const userSchema = new Schema({
         type: String,
         default: "Female",
         enum: ['Male', 'Female'],
+    },
+    profilePic: {
+        type: Object,
+    },
+    profilePicCloudinary: {
+        type: Object,
+    },
+    coverPic: {
+        type: [Object],
+    },
+    coverPicCloudinary: {
+        type: [Object]
     }
 }, {
     timestamps: true,

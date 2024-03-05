@@ -7,7 +7,8 @@ export const signUp = async (req, res, next) => {
     const { userName, email, password, age, gender } = req.body;
     const user = await userModel.findOne({ email })
     if (user) {
-        return res.status(409).json({ message: "email exists" })
+        //return res.status(409).json({ message: "email exists" })
+        return next(new Error("email exists"))
     }
     const hashedPassword = bcrypt.hashSync(password, parseInt(process.env.SALT_ROUND))
     const createUser = await userModel.create({ userName, email, password: hashedPassword, age, gender })
@@ -25,14 +26,17 @@ export const signIn = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email })
     if (!user) {
-        return res.status(404).json({ message: "Invalid email" })
+        // return res.status(404).json({ message: "Invalid email" })
+        return next(new Error("invalid email"))
     }
     const match = bcrypt.compareSync(password, user.password)
     if (!match) {
-        return res.status(404).json({ message: "invalid password" });
+        // return res.status(404).json({ message: "invalid password" });
+        return next(new Error("invalid password"))
     }
     if (!user.confirmEmail) {
-        return res.status(405).json({ message: "Please Confirm Your Email First!" })
+        // return res.status(405).json({ message: "Please Confirm Your Email First!" })
+        return next(new Error("Please Confirm Your Email First!"))
     }
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
     return res.status(201).json({ message: "sign in success", token });
@@ -43,7 +47,8 @@ export const confirmEmail = async (req, res, next) => {
     const decodedEmailToken = jwt.verify(emailToken, process.env.SECRET_KEY_EMAIL)
     const updateUser = await userModel.findOneAndUpdate({ email: decodedEmailToken.email, confirmEmail: false }, { confirmEmail: true })
     if (!updateUser) {
-        return res.status(400).json({ message: "your email is verified" })
+        // return res.status(400).json({ message: "your email is verified" })
+        return next(new Error("your email is verified"))
     } else {
         return res.redirect(`${req.protocol}://${req.headers.host}/auth/signIn`)
     }

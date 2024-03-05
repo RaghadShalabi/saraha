@@ -1,4 +1,5 @@
 import joi from "joi";
+import { generalFields } from "../../middleware/validation.js";
 
 export const signUpSchema =
 {
@@ -7,11 +8,7 @@ export const signUpSchema =
             'string.empty': "userName is required",
             'string.base': "userName must be string"
         }),
-        email: joi.string().email().required().messages({
-            'string.empty': "email is required",
-            'string.email': "plz enter a valid email",
-            'string.base': "email must be string"
-        }),
+        email: generalFields.email,
         age: joi.number().integer().required().min(18).max(80).messages({
             'number.base': "age must be number",
             'number.integer': "age must be integer",
@@ -21,10 +18,7 @@ export const signUpSchema =
         gender: joi.string().valid('Male', 'Female').messages({
             'any.only': "gender should be either Male or Female"
         }),
-        password: joi.string().required().min(6).messages({
-            'string.empty': "password is required",
-            'string.min': "password length at least 6 characters long"
-        }),
+        password: generalFields.password,
         cPassword: joi.string().valid(joi.ref('password')).required().messages({
             'any.only': "confirm password and password not matched",
             'any.required': "Confirm Password is required"
@@ -43,14 +37,7 @@ export const signUpSchema =
 export const signInSchema =
 {
     body: joi.object({
-        email: joi.string().email().required().messages({
-            'string.empty': "email is required",
-            'string.email': "plz enter a valid email",
-            'string.base': "email must be string"
-        }),
-        password: joi.string().required().min(6).messages({
-            'string.empty': "password is required",
-            'string.min': "password length at least 6 characters long"
-        }),
+        email: generalFields.email,
+        password: generalFields.password,
     })
 }
