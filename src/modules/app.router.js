@@ -24,7 +24,7 @@ const initApp = (app, express) => {
 
     app.use(globalErrorHandler)
 
-    app.get('/', (req, res) => {
+    app.use('/', (req, res) => {
         return res.status(201).json("Welcome...")
     })
     app.use('*', (req, res) => {
