@@ -24,10 +24,10 @@ const initApp = (app, express) => {
 
     app.use(globalErrorHandler)
 
-    app.use('/', (req, res) => {
+    app.get('/', (req, res) => {
         return res.status(201).json("Welcome...")
     })
-    app.use('*', (req, res) => {
+    app.get('*', (req, res) => {
         return res.json({ message: "Page not found 404 x_x" })
     })
 }
